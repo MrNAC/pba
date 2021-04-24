@@ -85,17 +85,17 @@ def parse_log_schedule(file_path, epochs, multiplier=1):
     schedule = []
     count = 0
     for num_iters, pol in policy:
-        tf.logging.debug("iters {} by multiplier {} result: {}".format(
+        tf.compat.v1.logging.debug("iters {} by multiplier {} result: {}".format(
             num_iters, multiplier, num_iters * multiplier))
         for _ in range(int(num_iters * multiplier)):
             schedule.append(pol)
             count += 1
     if int(epochs * multiplier) - count > 0:
-        tf.logging.info("len: {}, remaining: {}".format(
+        tf.compat.v1.logging.info("len: {}, remaining: {}".format(
             count, epochs * multiplier))
     for _ in range(int(epochs * multiplier) - count):
         schedule.append(policy[-1][1])
-    tf.logging.info("final len {}".format(len(schedule)))
+    tf.compat.v1.logging.info("final len {}".format(len(schedule)))
     return schedule
 
 
